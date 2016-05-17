@@ -1,4 +1,5 @@
 import {Page} from 'ionic-angular';
+import {Http} from 'angular2/http';
 
 
 @Page({
