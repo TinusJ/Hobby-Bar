@@ -7,7 +7,7 @@ import {SessionDetailPage} from '../session-detail/session-detail';
 @Page({
   templateUrl: 'build/pages/speaker-list/speaker-list.html'
 })
-export class SpeakerListPage {
+export class Bars {
   actionSheet: ActionSheet;
   speakers = [];
 

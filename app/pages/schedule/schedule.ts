@@ -9,7 +9,7 @@ import {SessionDetailPage} from '../session-detail/session-detail';
 @Page({
   templateUrl: 'build/pages/schedule/schedule.html'
 })
-export class SchedulePage {
+export class Specials {
   // the list is a child of the schedule page
   // @ViewChild('scheduleList') gets a reference to the list
   // with the variable #scheduleList, `read: List` tells it to return
