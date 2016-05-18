@@ -4,7 +4,6 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     argv = process.argv;
 
-
 /**
  * Ionic hooks
  * Add ':before' or ':after' to any Ionic project command name to run the specified
@@ -45,7 +44,6 @@ gulp.task('watch', ['clean'], function(done){
     }
   );
 });
-
 gulp.task('build', ['clean'], function(done){
   runSequence(
     ['sass', 'html', 'fonts', 'scripts'],
@@ -69,4 +67,13 @@ gulp.task('fonts', copyFonts);
 gulp.task('scripts', copyScripts);
 gulp.task('clean', function(){
   return del('www/build');
+});
+
+// Run typescript linter on the app folder
+gulp.task('tslint', function() {
+  var tslint = require('gulp-tslint');
+  return gulp.src([
+      'app/**/*.ts'
+    ]).pipe(tslint())
+      .pipe(tslint.report('verbose'));
 });
