@@ -100,6 +100,34 @@ export class ConferenceData {
       return day;
     });
   }
+  
+  getSpecials() {
+    return this.load().then(data => {
+      let specials = data.specials;
+      specials.shownSessions = 0;
+       console.log(specials);
+    //  queryText = queryText.toLowerCase().replace(/,|\.|-/g, ' ');
+     // let queryWords = queryText.split(' ').filter(w => !!w.trim().length);
+
+    /*  specials.groups.forEach(group => {
+        group.hide = true;
+
+        group.sessions.forEach(session => {
+          // check if this session should show or not
+      //    this.filterSession(session, queryWords, excludeTracks, segment);
+
+          if (!session.hide) {
+            // if this session is not hidden then this group should show
+            group.hide = false;
+            specials.shownSessions++;
+          }
+        });
+
+      });*/
+        console.log(specials);
+      return specials;
+    });
+  }
 
   filterSession(session, queryWords, excludeTracks, segment) {
 

@@ -470,6 +470,28 @@
     "DrinkType": "",
     "DrinkVolume": 0
   }
+],
+"specials":[
+  {
+    "specialId":1,
+    "barId":1,
+    "specialName":"DBL Klipdrift + Coke",
+    "specialType":["Brandy"],
+    "specialPrice": 22.00
+  },{
+    "specialId":3,
+    "barId":3,
+    "specialName":"DBL J&B + Coke",
+    "specialType":["Whiskey"],
+    "specialPrice": 25.00
+  },{
+    "specialId":2,
+    "barId":2,
+    "specialName":"SledgeHammer",
+    "specialType":["Shooter"],
+    "specialPrice": 10.00
+  }
+  
 ]
   
   

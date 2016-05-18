@@ -43,13 +43,19 @@ export class Specials {
   updateSchedule() {
     // Close any open sliding items when the schedule updates
     this.scheduleList && this.scheduleList.closeSlidingItems();
-
+   this.test();
     this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).then(data => {
       this.shownSessions = data.shownSessions;
       this.groups = data.groups;
     });
   }
 
+  test(){
+    this.confData.getSpecials().then(data => {
+      this.shownSessions = data.shownSessions;
+      this.groups = data.groups;
+    });
+  }
   presentFilter() {
     let modal = Modal.create(ScheduleFilterPage, this.excludeTracks);
     this.nav.present(modal);
