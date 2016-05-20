@@ -36,22 +36,22 @@
         {{group.time}}
       </ion-item-divider>
 
-      <ion-item-sliding *ngFor="#session of group.sessions" #slidingItem [attr.track]="session.tracks[0] | lowercase" [hidden]="session.hide">
+      <ion-item-sliding *ngFor="#special of specials" #slidingItem [attr.track]="special.specialType[0] | lowercase" [hidden]="special.hide">
 
-        <button ion-item (click)="goToSessionDetail(session)">
-          <h3>{{session.name}}</h3>
+        <button ion-item (click)="goToSessionDetail(special)">
+          <h3>{{special.specialName}}</h3>
           <p>
-            {{session.timeStart}} &mdash;
-            {{session.timeEnd}}:
-            {{session.location}}
+            {{special.timeStart}} &mdash;
+            {{special.timeEnd}}:
+            {{special.barId}}
           </p>
         </button>
 
         <ion-item-options>
-          <button favorite (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
+          <button favorite (click)="addFavorite(slidingItem, special)" *ngIf="segment === 'all'">
             Favorite
           </button>
-          <button danger (click)="removeFavorite(slidingItem, session, 'Remove Favorite')" *ngIf="segment === 'favorites'">
+          <button danger (click)="removeFavorite(slidingItem, special, 'Remove Favorite')" *ngIf="segment === 'favorites'">
             Remove
           </button>
         </ion-item-options>
@@ -63,7 +63,7 @@
   </ion-list>
 
   <ion-list-header [hidden]="shownSessions > 0">
-      No Sessions Found
+    No Specials Found
   </ion-list-header>
 
 

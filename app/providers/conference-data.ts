@@ -124,7 +124,7 @@ export class ConferenceData {
         });
 
       });*/
-        console.log(specials);
+       // console.log(specials);
       return specials;
     });
   }

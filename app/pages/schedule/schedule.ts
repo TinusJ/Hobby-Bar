@@ -22,6 +22,7 @@ export class Specials {
   excludeTracks = [];
   shownSessions = [];
   groups = [];
+  specials =[];
 
   constructor(
     private app: IonicApp,
@@ -52,8 +53,7 @@ export class Specials {
 
   test(){
     this.confData.getSpecials().then(data => {
-      this.shownSessions = data.shownSessions;
-      this.groups = data.groups;
+       this.specials = data;
     });
   }
   presentFilter() {
