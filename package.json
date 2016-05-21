@@ -8,10 +8,13 @@
   },
   "dependencies": {
     "angular2": "2.0.0-beta.16",
+    "angularfire2": "^2.0.0-beta.0",
     "es6-shim": "^0.35.0",
+    "firebase": "^3.0.2",
     "ionic-angular": "2.0.0-beta.6-201605132240",
     "ionic-native": "^1.1.0",
     "ionicons": "3.0.0",
+    "ng2-firebase": "^0.8.1",
     "rxjs": "5.0.0-beta.2"
   },
   "devDependencies": {
