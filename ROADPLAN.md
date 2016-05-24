@@ -39,7 +39,9 @@
 10. Push Notifications
    1. Notify User of new specials. (+Favriotes setting+)
    2. Notify User of new bars. (+setting+)
-11. Bar App for Bar 
+   
+   
+11. Bar App for Bar ?? Extra App
     1. Login Page
     2. Menu Edit Page
     3. Special Edit Page

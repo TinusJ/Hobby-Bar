@@ -8,9 +8,9 @@ import {TabsPage} from './pages/tabs/tabs';
 import {LoginPage} from './pages/login/login';
 import {SignupPage} from './pages/signup/signup';
 import {TutorialPage} from './pages/tutorial/tutorial';
-import {FirebaseService,FirebaseProvider} from 'ng2-firebase/core';
+//import {FirebaseService,FirebaseProvider} from 'ng2-firebase/core';
 
-import {FIREBASE_PROVIDERS, defaultFirebase, AngularFire} from 'angularfire2';
+//import {FIREBASE_PROVIDERS, defaultFirebase, AngularFire} from 'angularfire2';
 
 
 interface PageObj {
@@ -22,7 +22,7 @@ interface PageObj {
 
 @App({
   templateUrl: 'build/app.html',
-  providers: [ConferenceData, UserData,FirebaseProvider,  defaultFirebase('https://bar-adviser.firebaseio.com/')],
+  providers: [ConferenceData, UserData],/// ,FirebaseProvider,  defaultFirebase('https://bar-adviser.firebaseio.com/')
   // Set any config for your app here, see the docs for
   // more ways to configure your app:
   // http://ionicframework.com/docs/v2/api/config/Config/
@@ -84,7 +84,7 @@ class ConferenceApp {
  
     this.listenToLoginEvents();
     
-    this.firebase =  new FirebaseService(new Firebase('https://bar-adviser.firebaseio.com/') );
+    //this.firebase =  new FirebaseService(new Firebase('https://bar-adviser.firebaseio.com/') );
     
   }
   

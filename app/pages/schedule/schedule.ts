@@ -4,7 +4,7 @@ import {ConferenceData} from '../../providers/conference-data';
 import {UserData} from '../../providers/user-data';
 import {ScheduleFilterPage} from '../schedule-filter/schedule-filter';
 import {SessionDetailPage} from '../session-detail/session-detail';
-import {AngularFire} from 'angularfire2';
+//import {AngularFire} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 
 
@@ -24,16 +24,16 @@ export class Specials {
   excludeTracks = [];
   shownSessions = [];
   groups = [];
-  specials: Observable<any[]>;
+  specials= [];//Observable<any
 
   constructor(
     private app: IonicApp,
     private nav: NavController,
     private confData: ConferenceData,
-    private user: UserData,
-    af: AngularFire
+    private user: UserData
+   
   ) {
-    this.specials = af.list('/specials');
+   // this.specials = af.list('/specials'); af: AngularFire
   }
 
   onPageDidEnter() {
