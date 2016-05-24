@@ -20,7 +20,7 @@ export class TutorialPage {
     this.slides = [
       {
         title: 'Welcome to <b>BarAdviser</b>',
-        description: 'This will help something something somthiong',
+        description: 'This will help something something Something',
         image: 'img/1.jpg',
       },
       {

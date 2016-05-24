@@ -9,9 +9,9 @@ import {Observable} from 'rxjs/Observable';
 
 
 @Page({
-  templateUrl: 'build/pages/schedule/schedule.html'
+  templateUrl: 'build/pages/specials/specials.html'
 })
-export class Specials {
+export class SpecialsPage {
   // the list is a child of the schedule page
   // @ViewChild('scheduleList') gets a reference to the list
   // with the variable #scheduleList, `read: List` tells it to return
