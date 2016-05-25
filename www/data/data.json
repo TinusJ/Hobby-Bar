@@ -330,9 +330,7 @@
       "lng": -89.38335
     }
   ],
-  
-  
- "bars": [
+   "bars": [
   {
     "BarId": 1,
     "BarName": "Rio Cabannas",
@@ -499,9 +497,5 @@
   }
   
 ]
-  
-  
-  
-  
 
 }

@@ -1,5 +1,6 @@
 {
-  "name": "Bar Adrviser",
+  "name": "Bar Adviser",
   "app_id": "",
+  "typescript": true,
   "v2": true
 }

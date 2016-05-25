@@ -1,8 +1,8 @@
 # Bar Adviser
 ------------------------------------------
 
-Requires :
-1. NodeJS
+Requires : <br/>
+1. NodeJS <br/>
 2. IONIC
 
 To Run  : <br/>

@@ -19,19 +19,19 @@ export class TutorialPage {
   constructor(private nav: NavController, private menu: MenuController) {
     this.slides = [
       {
-        title: 'Welcome to <b>BarAdviser</b>',
-        description: 'This will help something something Something',
+        title: 'Welcome to <b>BAR APP</b>',
+        description: 'Some Info Here',
         image: 'img/1.jpg',
       },
       {
-        title: 'What is the Purpose?',
-        description: 'To Show Something different Here and Here and HEre',
+        title: 'What is BA?',
+        description: 'BA BA BA BA BA BA',
         image: 'img/2.jpg',
       },
       {
-        title: 'Why Choose this?',
-        description: 'Because of this and that and this again',
-        image: 'img/3.jpg',
+        title: 'why is BA BA?',
+        description: 'The <b>BA/b> BABAh BABABABABABA BABABABABA',
+        image: 'img/4.jpg',
       }
     ];
   }

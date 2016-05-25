@@ -1,4 +1,4 @@
-import {ViewChild} from 'angular2/core';
+import {ViewChild} from '@angular/core';
 import {App, Events, Platform, Nav, MenuController} from 'ionic-angular';
 import {StatusBar, Splashscreen} from 'ionic-native';
 import {ConferenceData} from './providers/conference-data';
@@ -8,10 +8,6 @@ import {TabsPage} from './pages/tabs/tabs';
 import {LoginPage} from './pages/login/login';
 import {SignupPage} from './pages/signup/signup';
 import {TutorialPage} from './pages/tutorial/tutorial';
-//import {FirebaseService,FirebaseProvider} from 'ng2-firebase/core';
-
-//import {FIREBASE_PROVIDERS, defaultFirebase, AngularFire} from 'angularfire2';
-
 
 interface PageObj {
   title: string;
@@ -22,7 +18,7 @@ interface PageObj {
 
 @App({
   templateUrl: 'build/app.html',
-  providers: [ConferenceData, UserData],/// ,FirebaseProvider,  defaultFirebase('https://bar-adviser.firebaseio.com/')
+  providers: [ConferenceData, UserData],
   // Set any config for your app here, see the docs for
   // more ways to configure your app:
   // http://ionicframework.com/docs/v2/api/config/Config/
@@ -34,12 +30,10 @@ interface PageObj {
   }
 })
 class ConferenceApp {
- 
-  
   // the root nav is a child of the root app component
   // @ViewChild(Nav) gets a reference to the app's root nav
   @ViewChild(Nav) nav: Nav;
- // fireService : FirebaseService;
+
   // List of pages that can be navigated to from the left menu
   // the left menu only works after login
   // the login page disables the left menu
@@ -58,15 +52,14 @@ class ConferenceApp {
     { title: 'Signup', component: SignupPage, icon: 'person-add' }
   ];
   rootPage: any = TutorialPage;
-  
-  firebase:any;
-  
+
   constructor(
     private events: Events,
     private userData: UserData,
     private menu: MenuController,
     platform: Platform,
-    confData: ConferenceData){
+    confData: ConferenceData
+  ) {
     // Call any initial plugins when ready
     platform.ready().then(() => {
       StatusBar.styleDefault();
@@ -80,14 +73,10 @@ class ConferenceApp {
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
       this.enableMenu(hasLoggedIn === 'true');
     });
-     // FirebaseService = new FirebaseService(new Firebase('https://bar-adviser.firebaseio.com/'));
- 
+
     this.listenToLoginEvents();
-    
-    //this.firebase =  new FirebaseService(new Firebase('https://bar-adviser.firebaseio.com/') );
-    
   }
-  
+
   openPage(page: PageObj) {
     // the nav component was found using @ViewChild(Nav)
     // reset the nav to remove previous pages and only have this page
@@ -119,8 +108,6 @@ class ConferenceApp {
     this.events.subscribe('user:logout', () => {
       this.enableMenu(false);
     });
-    
-    
   }
 
   enableMenu(loggedIn) {

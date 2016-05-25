@@ -8,23 +8,33 @@
 
 <ion-content>
   <div class="about-header">
-      @Tinus Bar Adviser Info
+    <img src="img/ionic-logo-white.svg">
   </div>
   <div padding class="about-info">
-    <h4>Bar Adviser</h4>
+    <h4>Ionic Conference</h4>
 
-    <div>
-      <ion-icon name="calendar"></ion-icon>
-      05/18/2016 created
-    </div>
+    <ion-list no-lines>
+      <ion-item>
+        <ion-icon name="calendar" item-left></ion-icon>
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="conferenceDate"></ion-datetime>
+      </ion-item>
 
-    <div>
-      <ion-icon name="pin"></ion-icon>
-      Tinus Jackson
-    </div>
+      <ion-item>
+        <ion-icon name="pin" item-left></ion-icon>
+        <ion-label>Location</ion-label>
+        <ion-label text-right>Madison, WI</ion-label>
+      </ion-item>
+    </ion-list>
 
     <p>
-      This app will produce bar info 
+      The Ionic Conference is a one-day conference featuring talks from the
+      Ionic team. It is focused on Ionic applications being built with
+      Ionic 2. This includes migrating apps from Ionic 1 to Ionic 2,
+      Angular concepts, Webpack, Sass, and many other technologies used
+      in Ionic 2. Tickets are completely sold out, and we’re expecting
+      more than 1000 developers – making this the largest Ionic
+      conference ever!
     </p>
   </div>
 </ion-content>

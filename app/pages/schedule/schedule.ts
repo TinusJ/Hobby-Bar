@@ -4,14 +4,12 @@ import {ConferenceData} from '../../providers/conference-data';
 import {UserData} from '../../providers/user-data';
 import {ScheduleFilterPage} from '../schedule-filter/schedule-filter';
 import {SessionDetailPage} from '../session-detail/session-detail';
-//import {AngularFire} from 'angularfire2';
-import {Observable} from 'rxjs/Observable';
 
 
 @Page({
-  templateUrl: 'build/pages/specials/specials.html'
+  templateUrl: 'build/pages/schedule/schedule.html'
 })
-export class SpecialsPage {
+export class SchedulePage {
   // the list is a child of the schedule page
   // @ViewChild('scheduleList') gets a reference to the list
   // with the variable #scheduleList, `read: List` tells it to return
@@ -24,16 +22,14 @@ export class SpecialsPage {
   excludeTracks = [];
   shownSessions = [];
   groups = [];
-  specials= [];//Observable<any
 
   constructor(
     private app: IonicApp,
     private nav: NavController,
     private confData: ConferenceData,
     private user: UserData
-   
   ) {
-   // this.specials = af.list('/specials'); af: AngularFire
+
   }
 
   onPageDidEnter() {
@@ -47,18 +43,13 @@ export class SpecialsPage {
   updateSchedule() {
     // Close any open sliding items when the schedule updates
     this.scheduleList && this.scheduleList.closeSlidingItems();
-   this.test();
+
     this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).then(data => {
       this.shownSessions = data.shownSessions;
       this.groups = data.groups;
     });
   }
 
-  test(){
-    this.confData.getSpecials().then(data => {
-       this.specials = data;
-    });
-  }
   presentFilter() {
     let modal = Modal.create(ScheduleFilterPage, this.excludeTracks);
     this.nav.present(modal);

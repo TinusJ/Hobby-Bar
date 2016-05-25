@@ -2,10 +2,10 @@
 <widget id="io.ionic.conference" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Bar Adviser</name>
     <description>
-        A Bar Adviser App*
+       Bar Adviser to advice on some stuff
   </description>
     <author email="jacksontinus96@gmail.com" >
-      Tinus Jackson
+     TinusJ
   </author>
     <content src="index.html" />
     <access origin="*" />
