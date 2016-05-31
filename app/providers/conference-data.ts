@@ -12,7 +12,7 @@ export class ConferenceData {
  // myFancyDb: any;
   af: AngularFire;
  // myFancyDb:any;
-     specials= [];
+   specials: any;
    
   constructor(private http: Http, private user: UserData ,_af: AngularFire) {
      this.af = _af;
@@ -31,6 +31,8 @@ export class ConferenceData {
       // We're using Angular Http provider to request the data,
       // then on the response it'll map the JSON data to a parsed JS object.
       // Next we process the data and resolve the promise with the new data.
+      //CHANGE THIS!!!!!!!!!
+      //https://bar-adivser.firebaseio.com/bars.json
       this.http.get('data/data.json').subscribe(res => {
         // we've got back the raw data, now generate the core schedule data
         // and save the data for later reference
@@ -60,7 +62,12 @@ export class ConferenceData {
     return data;
   }
 
- 
+  getSpecials() {
+     this.specials = this.af.database.list('/specials');
+      console.log( this.specials);
+      
+    return this.specials;
+  }
   
   processSession(data, session) {
     // loop through each speaker and load the speaker data
@@ -86,8 +93,8 @@ export class ConferenceData {
     }
   }
 
-  getTimeline(dayIndex, queryText , excludeTracks = [], segment = 'all') {
-    /*return this.load().then(data => {
+  getTimeline(dayIndex, queryText = '', excludeTracks = [], segment = 'all') {
+    return this.load().then(data => {
       let day = data.schedule[dayIndex];
       day.shownSessions = 0;
 
@@ -111,57 +118,7 @@ export class ConferenceData {
       });
 
       return day;
-    });*/
-    
-    let sortedSpecials = [];
-    let tmpSpecials = this.getFBSpecials();
-    
-    let matchesSegment = false;
- 
-    
-    if(queryText === null || queryText.length < 1 || queryText === ''){
-        for(let i = 0; i <  tmpSpecials.length ; i++){
-           if (segment === 'favorites') {
-                if (this.user.hasFavorite(tmpSpecials[i].specialName)) {
-                  matchesSegment = true;
-                }
-              } else {
-                matchesSegment = true;
-              }
-          
-            if(matchesSegment)  {
-              sortedSpecials.push(tmpSpecials[i]);
-           }
-      
-        }
-      return sortedSpecials;
-    }
-    
-   // console.log(queryText);
-    
-    for(let i = 0; i <  tmpSpecials.length ; i++){
-             if (segment === 'favorites') {
-                if (this.user.hasFavorite(tmpSpecials[i].specialName)) {
-                  matchesSegment = true;
-                }
-              } else {
-                matchesSegment = true;
-              }
-        if(tmpSpecials[i].specialName.toLowerCase().indexOf(queryText.toLowerCase()) > -1){
-           if(matchesSegment)  {
-              sortedSpecials.push(tmpSpecials[i]);
-           }
-        }else{
-          if(tmpSpecials[i].specialDescription.toLowerCase().indexOf(queryText.toLowerCase()) > -1){
-             if(matchesSegment)  {
-            sortedSpecials.push(tmpSpecials[i]);
-           }
-          }
-        }
-    }
-    
-    return sortedSpecials;
-    
+    });
   }
 
   filterSession(session, queryWords, excludeTracks, segment) {
@@ -231,11 +188,7 @@ export class ConferenceData {
   }
   
   getFBSpecials(){
-   if(  this.specials != null &&  this.specials.length > 0){
-     return this.specials;
-   }else{
-     
-
+     let specials= [];
     this.http.get('https://bar-adivser.firebaseio.com/bars.json')
             .map(res => res.json())
             .subscribe(data => {
@@ -244,13 +197,12 @@ export class ConferenceData {
                 console.log(data[i]);
                 for(let j =0; j < data[i].barSpecials.length;j++){
                   console.log(data[i].barSpecials[j])
-                  this.specials.push(data[i].barSpecials[j]);
+                  specials.push(data[i].barSpecials[j]);
                 }
               }
             
             });
-             return this.specials;
-                }
+             return specials;
   }
 
 }

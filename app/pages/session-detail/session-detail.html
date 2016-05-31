@@ -1,21 +1,21 @@
 
 <ion-navbar *navbar>
-  <ion-title>Special Info</ion-title>
+  <ion-title>{{special.specialName}} Info</ion-title>
 </ion-navbar>
 
 <ion-content padding>
   <h1>{{special.specialName}}</h1>
 
-  <h4 *ngFor="let specialCat of special.specialCategory">
-    {{specialCat}}
-  </h4>
+  <h7>
+    [ {{special.specialCategory}} ]
+  </h7>
   
-  <h5 *ngFor="let specialDay of special.specialDays">
-    {{specialDay}}
+  <h5>
+    {{special.specialDays}}
   </h5>
 
   <p>
-    {{special.specialTime.timeStart}} - {{special.specialTime.timeEnd}}
+    {{special.specialTime.startTime}} - {{special.specialTime.endTime}}
   </p>
 
   <p>{{special.specialDescription}}</p>
