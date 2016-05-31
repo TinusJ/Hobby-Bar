@@ -5,9 +5,9 @@ import {Page, NavParams} from 'ionic-angular';
   templateUrl: 'build/pages/session-detail/session-detail.html'
 })
 export class SessionDetailPage {
-  session: any;
+  special: any;
 
   constructor(private navParams: NavParams) {
-    this.session = navParams.data;
+    this.special = navParams.data;
   }
 }

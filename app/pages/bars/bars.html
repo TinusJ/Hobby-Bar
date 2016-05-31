@@ -4,9 +4,15 @@
   </button>
   <ion-title>Bars</ion-title>
 </ion-navbar>
-
+<ion-toolbar>
+  <ion-searchbar primary
+                 [(ngModel)]="queryTextBar"
+                 (input)="updateBarList()"
+                 placeholder="Search Bars">
+  </ion-searchbar>
+</ion-toolbar>
 <ion-content class="outer-content speaker-list">
-  <ion-card *ngFor="#speaker of speakers" class="speaker">
+  <ion-card *ngFor="let speaker of searcBars" class="speaker">
 
     <ion-card-header>
       <ion-item>
@@ -19,7 +25,7 @@
 
     <ion-card-content class="outer-content">
       <ion-list>
-        <button ion-item *ngFor="#session of speaker.sessions" (click)="goToSessionDetail(session)">
+        <button ion-item *ngFor="let session of speaker.sessions" (click)="goToSessionDetail(session)">
           <h3>{{session.name}}</h3>
         </button>
         <button ion-item (click)="goToSpeakerDetail(speaker)">

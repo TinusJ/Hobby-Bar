@@ -1,20 +1,22 @@
 
 <ion-navbar *navbar>
-  <ion-title>Session</ion-title>
+  <ion-title>Special Info</ion-title>
 </ion-navbar>
 
 <ion-content padding>
-  <h1>{{session.name}}</h1>
+  <h1>{{special.specialName}}</h1>
 
-  <h4 *ngFor="#speaker of session.speakers">
-    {{speaker.name}}
+  <h4 *ngFor="let specialCat of special.specialCategory">
+    {{specialCat}}
   </h4>
+  
+  <h5 *ngFor="let specialDay of special.specialDays">
+    {{specialDay}}
+  </h5>
 
   <p>
-    {{session.timeStart}} - {{session.timeEnd}}
+    {{special.specialTime.timeStart}} - {{special.specialTime.timeEnd}}
   </p>
 
-  <p>{{session.location}}</p>
-
-  <p>{{session.description}}</p>
+  <p>{{special.specialDescription}}</p>
 </ion-content>

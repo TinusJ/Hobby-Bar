@@ -8,6 +8,8 @@ import {TabsPage} from './pages/tabs/tabs';
 import {LoginPage} from './pages/login/login';
 import {SignupPage} from './pages/signup/signup';
 import {TutorialPage} from './pages/tutorial/tutorial';
+import { FIREBASE_PROVIDERS, defaultFirebase,AngularFire,AuthMethods, AuthProviders,firebaseAuthConfig} from 'angularfire2';
+import {Push} from 'ionic-native';
 
 interface PageObj {
   title: string;
@@ -18,7 +20,11 @@ interface PageObj {
 
 @App({
   templateUrl: 'build/app.html',
-  providers: [ConferenceData, UserData],
+  providers: [ConferenceData, UserData,FIREBASE_PROVIDERS, defaultFirebase('https://bar-adviser.firebaseio.com'),firebaseAuthConfig({
+    provider: AuthProviders.Twitter,
+    method: AuthMethods.Popup,
+    remember: 'default'
+  })],
   // Set any config for your app here, see the docs for
   // more ways to configure your app:
   // http://ionicframework.com/docs/v2/api/config/Config/
@@ -65,7 +71,13 @@ class ConferenceApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
-
+    var push = Push.init({
+              android: {
+                  senderID: "562119521577"
+              }
+            });
+    
+      
     // load the conference data
     confData.load();
 
@@ -115,3 +127,5 @@ class ConferenceApp {
     this.menu.enable(!loggedIn, 'loggedOutMenu');
   }
 }
+
+

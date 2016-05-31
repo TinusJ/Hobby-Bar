@@ -6,7 +6,9 @@ import {ScheduleFilterPage} from '../schedule-filter/schedule-filter';
 import {SessionDetailPage} from '../session-detail/session-detail';
 //import {AngularFire} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
-
+import { Subject } from 'rxjs/Subject';
+import {Geolocation} from 'ionic-native';
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 @Page({
   templateUrl: 'build/pages/specials/specials.html'
@@ -24,16 +26,29 @@ export class SpecialsPage {
   excludeTracks = [];
   shownSessions = [];
   groups = [];
-  specials= [];//Observable<any
-
+  specials  =[];
+  lat:number;
+  long:number;
+  af: AngularFire;
+  sizeSubject: Subject<any>;
+  
   constructor(
     private app: IonicApp,
     private nav: NavController,
     private confData: ConferenceData,
-    private user: UserData
-   
+    private user: UserData,
+    _af: AngularFire
   ) {
-   // this.specials = af.list('/specials'); af: AngularFire
+    this.af = _af;
+    //let bars =   _af.list('/bars/'); 
+    //let bars:  FirebaseListObservable<any[]>;
+    
+    
+   
+  this.specials = confData.getFBSpecials();
+   
+  console.log(this.specials );
+  //   this.getLocation();
   }
 
   onPageDidEnter() {
@@ -43,22 +58,38 @@ export class SpecialsPage {
   ngAfterViewInit() {
     this.updateSchedule();
   }
+  
+  getLocation(){
+    
+   let geo_options = {
+          enableHighAccuracy: true, 
+          maximumAge        : 30000, 
+          timeout           : 27000
+        };
+
+    Geolocation.getCurrentPosition(geo_options).then((resp) => {
+          this.lat = resp.coords.latitude;
+          this.long = resp.coords.longitude;
+           console.log(resp);
+         alert( this.lat+ " : "+this.long);
+      });
+      
+     // google.maps.Circle
+      
+      
+  }
 
   updateSchedule() {
     // Close any open sliding items when the schedule updates
     this.scheduleList && this.scheduleList.closeSlidingItems();
-   this.test();
+
     this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).then(data => {
       this.shownSessions = data.shownSessions;
       this.groups = data.groups;
     });
   }
 
-  test(){
-    this.confData.getSpecials().then(data => {
-       this.specials = data;
-    });
-  }
+
   presentFilter() {
     let modal = Modal.create(ScheduleFilterPage, this.excludeTracks);
     this.nav.present(modal);
@@ -72,21 +103,19 @@ export class SpecialsPage {
 
   }
 
-  goToSessionDetail(sessionData) {
-    // go to the session detail page
-    // and pass in the session data
-    this.nav.push(SessionDetailPage, sessionData);
+  goToSessionDetail(special) {
+    this.nav.push(SessionDetailPage, special);
   }
 
-  addFavorite(slidingItem: ItemSliding, sessionData) {
+  addFavorite(slidingItem: ItemSliding, special) {
 
-    if (this.user.hasFavorite(sessionData.name)) {
+    if (this.user.hasFavorite(special.specialName)) {
       // woops, they already favorited it! What shall we do!?
       // prompt them to remove it
-      this.removeFavorite(slidingItem, sessionData, 'Favorite already added');
+      this.removeFavorite(slidingItem, special, 'Favorite already added');
     } else {
       // remember this session as a user favorite
-      this.user.addFavorite(sessionData.name);
+      this.user.addFavorite(special.specialName);
 
       // create an alert instance
       let alert = Alert.create({
@@ -105,10 +134,10 @@ export class SpecialsPage {
 
   }
 
-  removeFavorite(slidingItem: ItemSliding, sessionData, title) {
+  removeFavorite(slidingItem: ItemSliding, special, title) {
     let alert = Alert.create({
       title: title,
-      message: 'Would you like to remove this session from your favorites?',
+      message: 'Would you like to remove this special from your favorites?',
       buttons: [
         {
           text: 'Cancel',
@@ -122,7 +151,7 @@ export class SpecialsPage {
           text: 'Remove',
           handler: () => {
             // they want to remove this session from their favorites
-            this.user.removeFavorite(sessionData.name);
+            this.user.removeFavorite(special.specialName);
             this.updateSchedule();
 
             // close the sliding item and hide the option buttons

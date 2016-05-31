@@ -1,6 +1,6 @@
 {
   "name": "Bar Adviser",
-  "app_id": "",
+  "app_id": "io.tinusj.baradviser",
   "typescript": true,
   "v2": true
 }

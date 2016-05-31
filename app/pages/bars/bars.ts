@@ -10,10 +10,13 @@ import {SessionDetailPage} from '../session-detail/session-detail';
 export class BarsPage {
   actionSheet: ActionSheet;
   speakers = [];
+  searcBars = [];
+  queryTextBar:string;
 
   constructor(private nav: NavController, confData: ConferenceData) {
     confData.getSpeakers().then(speakers => {
       this.speakers = speakers;
+      this.searcBars = speakers;
     });
   }
 
@@ -59,5 +62,27 @@ export class BarsPage {
     });
 
     this.nav.present(actionSheet);
+  }
+  
+  updateBarList(){
+    //  alert(this.queryTextBar);
+    let tmpSearch = [];
+    if(this.queryTextBar != null && this.queryTextBar.length > 0 && this.queryTextBar != ''){
+      console.log( this.searcBars);
+       console.log( this.queryTextBar);
+       for(let x =0;x < this.searcBars.length;x++){
+          if(this.searcBars[x].name.toLowerCase().indexOf(this.queryTextBar.toLowerCase()) > 0){
+            tmpSearch.push(this.searcBars[x]);
+          }
+       }
+       
+       this.searcBars = tmpSearch;
+       
+    }else{
+      //Replace with original
+      this.searcBars = this.speakers;
+    }
+    
+    
   }
 }

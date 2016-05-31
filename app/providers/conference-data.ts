@@ -1,13 +1,24 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {UserData} from './user-data';
+//import * as Firebase from 'firebase/';
+import {Observable} from 'rxjs/Observable'
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 
 @Injectable()
 export class ConferenceData {
   data: any;
-
-  constructor(private http: Http, private user: UserData) {}
+ // myFancyDb: any;
+  af: AngularFire;
+ // myFancyDb:any;
+   specials: any;
+   
+  constructor(private http: Http, private user: UserData ,_af: AngularFire) {
+     this.af = _af;
+     // this.specials = this.af.database.list('/specials');
+     // console.log( this.specials);
+  }
 
   load() {
     if (this.data) {
@@ -50,41 +61,12 @@ export class ConferenceData {
   }
 
   getSpecials() {
-    return this.load().then(data => {
-      let specials = data.specials;
-      specials.shownSessions = 0;
-       console.log(specials);
-    //  queryText = queryText.toLowerCase().replace(/,|\.|-/g, ' ');
-     // let queryWords = queryText.split(' ').filter(w => !!w.trim().length);
-
-    /*  specials.groups.forEach(group => {
-        group.hide = true;
-
-        group.sessions.forEach(session => {
-          // check if this session should show or not
-      //    this.filterSession(session, queryWords, excludeTracks, segment);
-
-          if (!session.hide) {
-            // if this session is not hidden then this group should show
-            group.hide = false;
-            specials.shownSessions++;
-          }
-        });
-
-      });*/
-        console.log(specials);
-       
-       if (specials.specialType) {
-            specials.specialType.forEach(specialType => {
-              if (data.tracks.indexOf(specialType) < 0) {
-                data.tracks.push(specialType);
-              }
-            });
-          }
-    
-      return specials;
-    });
+     this.specials = this.af.database.list('/specials');
+      console.log( this.specials);
+      
+    return this.specials;
   }
+  
   processSession(data, session) {
     // loop through each speaker and load the speaker data
     // using the speaker name as the key
@@ -177,6 +159,9 @@ export class ConferenceData {
   }
 
   getSpeakers() {
+    //this.bars = this.af.database.list('/bars');
+    //console.log( this.specials);
+
     return this.load().then(data => {
       return data.speakers.sort((a, b) => {
         let aName = a.name.split(' ').pop();
@@ -184,6 +169,8 @@ export class ConferenceData {
         return aName.localeCompare(bName);
       });
     });
+    
+      
   }
 
   getTracks() {
@@ -197,5 +184,26 @@ export class ConferenceData {
       return data.map;
     });
   }
+  
+  getFBSpecials(){
+     let specials= [];
+    this.http.get('https://bar-adviser.firebaseio.com/bars.json')
+            .map(res => res.json())
+            .subscribe(data => {
+             // Should Sort HERE !!!!!!!!!!!!
+              for(let i =0;i < data.length;i++){
+                console.log(data[i]);
+               for(let j =0; j < data[i].barSpecials.length;j++){
+                 console.log(data[i].barSpecials[j])
+                 specials.push(data[i].barSpecials[j]);
+               }
+              }
+            
+            });
+             return specials;
+  }
 
 }
+
+
+
