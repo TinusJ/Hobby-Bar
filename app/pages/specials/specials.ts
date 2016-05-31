@@ -42,17 +42,12 @@ export class SpecialsPage {
     this.af = _af;
     //let bars =   _af.list('/bars/'); 
     //let bars:  FirebaseListObservable<any[]>;
-    
-    
-   
-  this.specials = confData.getFBSpecials();
-   
-  console.log(this.specials );
-  //   this.getLocation();
+
+    //this.getLocation();
   }
 
   onPageDidEnter() {
-    this.app.setTitle('Schedule');
+    this.app.setTitle('Specials');
   }
 
   ngAfterViewInit() {
@@ -75,18 +70,13 @@ export class SpecialsPage {
       });
       
      // google.maps.Circle
-      
-      
+
   }
 
   updateSchedule() {
     // Close any open sliding items when the schedule updates
     this.scheduleList && this.scheduleList.closeSlidingItems();
-
-    this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).then(data => {
-      this.shownSessions = data.shownSessions;
-      this.groups = data.groups;
-    });
+    this.specials = this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment);
   }
 
 

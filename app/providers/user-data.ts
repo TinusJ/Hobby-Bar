@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Storage, LocalStorage, Events} from 'ionic-angular';
 //import {Firebase} from './firebase'
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {AngularFire, FirebaseListObservable,AuthMethods,AuthProviders,firebaseAuthConfig} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
 
 
@@ -17,21 +17,21 @@ export class UserData {
     console.log('USER SERVICE CALLED');
     this.af = _af;
     //this.myFancyDb = new Firebase('https://bar-adviser.firebaseio.com');
-     this.items = this.af.database.list('/specials');
+     //this.items = this.af.database.list('/specials');
     
     // console.log(this.items );
   }
 
-  hasFavorite(sessionName) {
-    return (this._favorites.indexOf(sessionName) > -1);
+  hasFavorite(specialName) {
+    return (this._favorites.indexOf(specialName) > -1);
   }
 
-  addFavorite(sessionName) {
-    this._favorites.push(sessionName);
+  addFavorite(specialName) {
+    this._favorites.push(specialName);
   }
 
-  removeFavorite(sessionName) {
-    let index = this._favorites.indexOf(sessionName);
+  removeFavorite(specialName) {
+    let index = this._favorites.indexOf(specialName);
     if (index > -1) {
       this._favorites.splice(index, 1);
     }
@@ -41,22 +41,18 @@ export class UserData {
     this.storage.set(this.HAS_LOGGED_IN, true);
     this.setUsername(username);
     this.events.publish('user:login');
-   this.af.auth.login({ email: 'thinus@loyaltyplus.co.za', password: '@Tinus123' });
-   
-   console.log(this.af.auth.getAuth());
+    // Do LOGIN - FIREBASE
+    this.af.auth.login();
   }
 
-  signup(username) {
+
+  signup(username,password) {
     this.storage.set(this.HAS_LOGGED_IN, true);
     this.setUsername(username);
     this.events.publish('user:signup');
-    let firebaseCred = {
-      'email':'thins@this.com',
-      'password':'this'
-    }
-    // this.af.auth.login(firebaseCred)
-    
-  //  this.register()
+       // Do LOGIN - SIGNUP
+       this.af.auth.createUser({"email":"thinus@loyaltyplus.co.zaa","password":"TinusTest"});
+      
   }
 
   logout() {
@@ -82,30 +78,5 @@ export class UserData {
     });
   }
   
-  /*register(email:string,password:string){
-         var self = this;
-        this.myFancyDb.createUser({
-                email: email,
-                password: password
-                }, function(error, userData) {
-                if (error) {
-                    switch (error.code) {
-                    case "EMAIL_TAKEN":
-                        console.log("The new user account cannot be created because the email is already in use.");
-                        break;
-                    case "INVALID_EMAIL":
-                        console.log("The specified email is not a valid email.");
-                        break;
-                    default:
-                        console.log("Error creating user:", error);
-                    }
-                } else {
-                    console.log("Successfully created user account with uid:", userData.uid);
-                    console.log(userData);
-                  //  self.doLogin(email,password);
-                }
-                });
-                
-                
-    }*/
+
 }

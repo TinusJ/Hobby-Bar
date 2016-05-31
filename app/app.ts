@@ -21,8 +21,8 @@ interface PageObj {
 @App({
   templateUrl: 'build/app.html',
   providers: [ConferenceData, UserData,FIREBASE_PROVIDERS, defaultFirebase('https://bar-adviser.firebaseio.com'),firebaseAuthConfig({
-    provider: AuthProviders.Twitter,
-    method: AuthMethods.Popup,
+    provider: AuthProviders.Password,
+    method: AuthMethods.Password,
     remember: 'default'
   })],
   // Set any config for your app here, see the docs for
